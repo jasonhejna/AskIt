@@ -1,0 +1,57 @@
+html, body{
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #FFF;
+}
+@media print {
+  html, body {
+    height: auto;
+  }
+}
+.adLayer{
+	width: 800px;
+	/*to add ads to the adLayer, increase the width to like 1056px*/
+	height:100%;
+	position: relative;
+	overflow: hidden;
+	margin: 0 auto;
+}
+.contentContainer{
+	width: 800px;
+	height:100%;
+	position: relative;
+	overflow: hidden;
+	background-color: #FFF;
+}
+
+.logo{
+	margin-top: 25px;
+	margin-bottom: 25px;
+	color: blue;
+}
+.leftSidebar{
+	position: relative;
+	width: 175px;
+	height: 100%;
+	margin-right:25px;
+	float: left;
+	background-color: blue;
+}
+
+.actionContainer{
+	position: relative;
+	width: 600px;
+	height: 400px;
+	float: left;
+	background-color: #000
+}
+
+.footer {
+	position: relative;
+	width:600px;
+	height: 175px;
+	float: left;
+	margin-top: 25px;
+	background-color: blue;
+}
