@@ -33,25 +33,19 @@ html, body{
 .leftSidebar{
 	position: relative;
 	width: 175px;
-	height: 100%;
-	margin-right:25px;
+	height: 600px;
+	margin-right: 25px;
 	float: left;
 	background-color: blue;
 }
 
-.actionContainer{
+.askContainer{
 	position: relative;
 	width: 600px;
 	height: 400px;
 	float: left;
-	background-color: #000
+	background-color: #FFF;
 }
 
-.footer {
-	position: relative;
-	width:600px;
-	height: 175px;
-	float: left;
-	margin-top: 25px;
-	background-color: blue;
-}
+
+
