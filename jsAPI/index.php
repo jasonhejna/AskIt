@@ -9,6 +9,7 @@ if($apikey == "blah"){ //this if statement will be replaces with a db lookup to 
 		//echo "document.write(\"<script src='http://localhost/AskIt/jsAPI/askitV0.js'> load(); </script>\")";
 		echo "
 			function run(){
+				document.getElementById('ask-canvas').style.cssText = \"min-width:170px;min-height:40px;background-color:blue;\";
 				var div = document.createElement('div');
 				div.innerHTML = \"".$question."\";
 				div.id = \"askQ1\";
@@ -35,6 +36,13 @@ if($apikey == "blah"){ //this if statement will be replaces with a db lookup to 
 
 			}, 100); // check every 100ms
 			} load();
+
+			function randomFun(one, two, three, four){
+				console.log(one);
+				setTimeout(function(){console.log(two);},300);
+				setTimeout(function(){console.log(three);},600);
+				setTimeout(function(){console.log(four);},900);
+			}
 		";
 	}
 	

@@ -39,12 +39,11 @@ html, body{
 	background-color: blue;
 }
 
-.askContainer{
+#ask-canvas{
 	position: relative;
 	width: 600px;
 	height: 400px;
 	float: left;
-	background-color: #FFF;
 }
 
 
