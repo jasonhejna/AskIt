@@ -1,11 +1,14 @@
 function run(){
 	document.getElementById('ask-canvas').style.cssText = "min-width:170px;min-height:40px;background-color:blue;";
-	var div = document.createElement('div');
-	div.innerHTML = "Works";
-	div.id = "askQ1";
-	div.style.cssText = "width:100%;height:100%;color:#FFF;background-color:blue;";
-	var element=document.getElementById("ask-canvas");
-	element.appendChild(div);
+	var num-answeres = "";
+	var width = document.getElementById('ask-canvas').style.width;
+	var elem-width = width / num-answeres;
+	var height = document.getElementById('ask-canvas').style.height;
+	var div1 = document.createElement('div');
+	div1.innerHTML = "Works";
+	div1.id = "askQ1";
+	div1.style.cssText = "width:100%;height:100%;color:#FFF;background-color:blue;";
+	document.getElementById("ask-canvas").appendChild(div1);
 }
 
 function throwErrorMsg(errMsg){

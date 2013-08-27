@@ -1,51 +1,89 @@
 <?php
+error_reporting(-1);
+ini_set('display_errors', 'On');
 Header("Content-Type: application/x-javascript; charset=UTF-8");
 set_time_limit(3600);
+if(!$_GET){
+	echo "console.log(\"You need to fill in the URL with your API key, and question or answer ID. To get your API key, visit: askit.com\");";
+}else{
+	if ( isset( $_GET['apikey'] ) && !empty( $_GET['apikey'] ) ){
+		$apikey = htmlspecialchars($_GET['apikey']);
 
-$apikey = htmlspecialchars($_GET['apiKey']);
-if($apikey == "blah"){ //this if statement will be replaces with a db lookup to confirm the API key
-	$question = htmlspecialchars($_GET['question']);
-	if($question != null){ //change from null to a db check
-		//echo "document.write(\"<script src='http://localhost/AskIt/jsAPI/askitV0.js'> load(); </script>\")";
-		echo "
-			function run(){
-				document.getElementById('ask-canvas').style.cssText = \"min-width:170px;min-height:40px;background-color:blue;\";
-				var div = document.createElement('div');
-				div.innerHTML = \"".$question."\";
-				div.id = \"askQ1\";
-				div.style.cssText = \"width:100%;height:100%;color:#FFF;background-color:blue;\";
-				var element=document.getElementById(\"ask-canvas\");
-				element.appendChild(div);
+	if($apikey == "blah"){ //this if statement will be replaces with a db lookup to confirm the API key
+
+		if ( isset($_GET['answer']) && !empty($_GET['answer']) ){
+			$answer = htmlspecialchars($_GET['answer']);
+			if($answer != null){ //change from null to a db check
+				jsCompiler($answer);
 			}
-
-			function throwErrorMsg(errMsg){
-				console.log(errMsg);
-				var div = document.createElement('div');
-				div.innerHTML = errMsg;
-				div.id = \"askErrMsg\";
-				var element=document.getElementById(\"ask-canvas\");
-				element.appendChild(div);
+		}
+		elseif( isset($_GET['question']) && !empty($_GET['question']) ){
+			if($question != null){ //this if statement will be replaces with a db lookup to confirm the API key
+				$question = htmlspecialchars($_GET['question']);
+				//query question
 			}
-
-			function load(){
-				var checkExist = setInterval(function() {
-			   if (document.getElementById(\"ask-canvas\") != null) {
-			      clearInterval(checkExist);
-			      run();
-			   }
-
-			}, 100); // check every 100ms
-			} load();
-
-			function randomFun(one, two, three, four){
-				console.log(one);
-				setTimeout(function(){console.log(two);},300);
-				setTimeout(function(){console.log(three);},600);
-				setTimeout(function(){console.log(four);},900);
-			}
-		";
+		}
+		else{
+			echo "console.log(\"Please add a second script tag with the appropraite query in your html.\");";
+		}	
 	}
-	
+	}else{
+		echo "console.log(\"Api key failed\");";
+	}
 }
 
+
+function jsCompiler($answerw){
+	//query, and count # answeres
+	$numAnsweres = 5;
+	echo "
+		function run(){
+		document.getElementById('ask-canvas').style.cssText = \"min-width:170px;min-height:40px;background-color:blue;\";
+		var numansweres = ".$numAnsweres.";
+		var width = document.getElementById(\"ask-canvas\").offsetWidth;
+		var height = document.getElementById(\"ask-canvas\").offsetHeight;
+		var elemwidth = (width - (10*".$numAnsweres.")) / numansweres;
+		console.log(width);
+		";
+	for ($i=0; $i < $numAnsweres; $i++) {
+		//get width of ask-canvas
+		echo "
+		var div".$i." = document.createElement('div');
+		div".$i.".innerHTML = \"Works\";
+		div".$i.".id = \"askQ1\";
+		div".$i.".style.cssText = \"position:relative;float:left;margin:5px;min-width:\"+elemwidth+\"px;min-height:30px;color:#FFF;background-color:green;\";
+		document.getElementById(\"ask-canvas\").appendChild(div".$i.");
+		";
+	}
+
+	echo "}";
+
+	echo "
+		function throwErrorMsg(errMsg){
+			console.log(errMsg);
+			var div = document.createElement('div');
+			div.innerHTML = errMsg;
+			div.id = \"askErrMsg\";
+			var element=document.getElementById(\"ask-canvas\");
+			element.appendChild(div);
+		}
+
+		function load(){
+			var checkExist = setInterval(function() {
+		   if (document.getElementById(\"ask-canvas\") != null) {
+		      clearInterval(checkExist);
+		      run();
+		   }
+
+		}, 100); // check every 100ms
+		} load();
+
+		function randomFun(one, two, three, four){
+			console.log(one);
+			setTimeout(function(){console.log(two);},300);
+			setTimeout(function(){console.log(three);},600);
+			setTimeout(function(){console.log(four);},900);
+		}
+	";
+}
 ?>
