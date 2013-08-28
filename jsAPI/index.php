@@ -86,4 +86,5 @@ function jsCompiler($answerw){
 		}
 	";
 }
+
 ?>
