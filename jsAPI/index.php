@@ -4,7 +4,7 @@ ini_set('display_errors', 'On');
 Header("Content-Type: application/x-javascript; charset=UTF-8");
 set_time_limit(3600);
 if(!$_GET){
-	echo "console.log(\"You need to fill in the URL with your API key, and question or answer ID. To get your API key, visit: askit.com\");";
+	echo "console.log(\"You need to fill in the URL with your API key, and question or answer ID. To get your API key, visit: blah.com\");";
 }else{
 	if ( isset( $_GET['apikey'] ) && !empty( $_GET['apikey'] ) ){
 		$apikey = htmlspecialchars($_GET['apikey']);
@@ -24,7 +24,7 @@ if(!$_GET){
 			}
 		}
 		else{
-			echo "console.log(\"Please add a second script tag with the appropraite query in your html.\");";
+			echo "console.log(\"Please add a second script tag with the appropriate query in your html.\");";
 		}	
 	}
 	}else{
@@ -35,7 +35,7 @@ if(!$_GET){
 
 function jsCompiler($answerw){
 	//query, and count # answeres
-	$numAnsweres = 5;
+	$numAnsweres = 4;
 	echo "
 		function run(){
 		document.getElementById('ask-canvas').style.cssText = \"min-width:170px;min-height:40px;background-color:blue;\";
@@ -44,15 +44,28 @@ function jsCompiler($answerw){
 		var height = document.getElementById(\"ask-canvas\").offsetHeight;
 		var elemwidth = (width - (10*".$numAnsweres.")) / numansweres;
 		console.log(width);
+		var question = document.createElement('div');
+		question.id = \"question\";
+		question.innerHTML = \"Coke or Pepsi?\";
+		question.style.cssText = \"margin:5px;color:#FFF;\";
+		document.getElementById(\"ask-canvas\").appendChild(question);
+ 
 		";
 	for ($i=0; $i < $numAnsweres; $i++) {
 		//get width of ask-canvas
 		echo "
 		var div".$i." = document.createElement('div');
-		div".$i.".innerHTML = \"Works\";
-		div".$i.".id = \"askQ1\";
-		div".$i.".style.cssText = \"position:relative;float:left;margin:5px;min-width:\"+elemwidth+\"px;min-height:30px;color:#FFF;background-color:green;\";
+		div".$i.".innerHTML = \"".$answerw."\";
+		div".$i.".id = \"askQ".$i."\";
+		div".$i.".style.cssText = \"overflow:hidden;position:relative;float:left;margin:5px;width:\"+elemwidth+\"px;min-width:90px;min-height:30px;color:grey;background-color:#FFF;\";
 		document.getElementById(\"ask-canvas\").appendChild(div".$i.");
+
+		var ifrm = document.createElement('IFRAME');
+		ifrm.setAttribute(\"src\", \"//www.youtube.com/embed/XFMrBldVk0s\");
+		ifrm.style.width = elemwidth+\"px\"; 
+		ifrm.style.height = elemwidth / 2 +\"px\";
+		document.getElementById(\"askQ".$i."\").appendChild(ifrm);
+
 		";
 	}
 
@@ -75,7 +88,7 @@ function jsCompiler($answerw){
 		      run();
 		   }
 
-		}, 100); // check every 100ms
+		}, 100); // check every 100ms for the ask-canvas element to be loaded
 		} load();
 
 		function randomFun(one, two, three, four){
