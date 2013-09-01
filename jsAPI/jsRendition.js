@@ -7,7 +7,7 @@ function run(){
 	var div1 = document.createElement('div');
 	div1.innerHTML = "Works";
 	div1.id = "askQ1";
-	div1.style.cssText = "width:100%;height:100%;color:#FFF;background-color:blue;";
+	div1.style.cssText = "width:"+elemwidth+";height:100%;color:#FFF;background-color:blue;";
 	document.getElementById("ask-canvas").appendChild(div1);
 }
 
