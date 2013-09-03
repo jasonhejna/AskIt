@@ -1,12 +1,12 @@
 <?php
 function jsCompiler($answerw){
 	//query, and count # answeres
-	$numAnsweres = 3;
+	$numAnsweres = 4;
 	echo "
 		function makeCSS(width){
 		var style = document.createElement('style');
 		style.type = 'text/css';
-		style.innerHTML = '.deleteAnswerAnimate { animation: myfirst 2s; -webkit-animation: myfirst 2s; } @keyframes myfirst{ 0%{width:\"+width+\"px;} 100%{width:0px;margin:0px;} } @-webkit-keyframes myfirst{0% {width:\"+width+\"px;} 100% {width:0px;margin:0px;} }';
+		style.innerHTML = '.deleteAnswerAnimate { animation: myfirst 2s; -webkit-animation: myfirst 2s; } @keyframes myfirst{ 0%{width:\"+width+\"px;} 100%{width:0px;margin-right:0px;} } @-webkit-keyframes myfirst{0% {width:\"+width+\"px;} 100% {width:0px;margin-right:0px;} }';
 		document.getElementsByTagName('head')[0].appendChild(style);
 		}
 
@@ -22,7 +22,7 @@ function jsCompiler($answerw){
 
 		var question = document.createElement('div');
 		question.id = \"question\";
-		question.innerHTML = \"Coke or Pepsi?\";
+		question.innerHTML = \"".$answerw."\";
 		question.style.cssText = \"margin:5px;color:blue;\";
 		document.getElementById(\"ask-canvas\").appendChild(question);
  		
@@ -46,36 +46,48 @@ function jsCompiler($answerw){
 		document.getElementById(\"answeresContainer\").appendChild(askQ".$i.");
 
 		var plus".$i." = document.createElement('div');
-		plus".$i.".innerHTML = \"Vote Up\";
+		plus".$i.".innerHTML = \"&#9650;\";
 		plus".$i.".id = \"plus".$i."\";
-		plus".$i.".style.cssText = \"cursor:pointer;text-align:center;width:\"+elemwidth+\"px;background-color:green;color:#FFF;\";
+		plus".$i.".style.cssText = \"position:relative;cursor:pointer;width:10px;background-color:#FFF;font-size:1.0em;\";
 		document.getElementById(\"askQ".$i."\").appendChild(plus".$i.");
 
+		var minus".$i." = document.createElement('div');
+		minus".$i.".innerHTML = \"&#9660;\";
+		minus".$i.".id = \"minus".$i."\";
+		minus".$i.".style.cssText = \"position:relative;cursor: pointer;width:10px;background-color:#FFF;font-size:1.0em;\";
+		document.getElementById(\"askQ".$i."\").appendChild(minus".$i.");
+		";
+	if($i == 2){
+		echo "
 		var ifrm = document.createElement('IFRAME');
 		ifrm.setAttribute(\"src\", \"//www.youtube.com/embed/XFMrBldVk0s\");
 		ifrm.style.width = (elemwidth -2) +\"px\"; 
 		document.getElementById(\"askQ".$i."\").appendChild(ifrm);
 
+		";
+	}else{
+		echo "
+		var ifrm = document.createElement('div');
+		ifrm.innerHTML = \"great answer lol\";
+		ifrm.style.width = (elemwidth -2) +\"px\"; 
+		document.getElementById(\"askQ".$i."\").appendChild(ifrm);
 
-		var minus".$i." = document.createElement('div');
-		minus".$i.".innerHTML = \"Vote Down\";
-		minus".$i.".id = \"minus".$i."\";
-		minus".$i.".style.cssText = \"cursor: pointer;text-align:center;width:\"+elemwidth+\"px;background-color:red;color:#FFF;\";
-		document.getElementById(\"askQ".$i."\").appendChild(minus".$i.");
+		";
+	}
 
+	echo "
 		document.getElementById('minus".$i."').onclick=function(){
 			document.getElementById(\"askQ".$i."\").className = 'deleteAnswerAnimate';
 			setTimeout(function(){
 				removeById(\"askQ".$i."\");
-			},2000);
+			},1900);
 		}
 
 		";
 	}
 
-	echo "}";
 
-	echo "
+	echo "}
 		function throwErrorMsg(errMsg){
 			console.log(errMsg);
 			var div = document.createElement('div');
